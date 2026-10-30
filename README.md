@@ -4,7 +4,7 @@
 
 字鉴是一款纯浏览器运行的富文档对比与合并工具。将两份相似文档拖入左右工作区，即可在接近 Word 的分页视图中逐词高亮差异、直接修改任意一侧，并逐处决定最终稿采用哪个版本。
 
-**在线体验：** [wordwise-document-compare.lilacsky69.chatgpt.site](https://wordwise-document-compare.lilacsky69.chatgpt.site)
+**在线体验：** [ziyiw9823-henry.github.io/zijian-document-compare](https://ziyiw9823-henry.github.io/zijian-document-compare/)
 
 ## 功能亮点
 
