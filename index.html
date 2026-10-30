@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="逐词比较两份文档，逐处决定保留内容，并实时编辑合并稿。">
+  <title>字鉴 · 文档对比工作台</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="字鉴首页">
+      <span class="brand-mark">字</span>
+      <span><strong>字鉴</strong><small>文档对比工作台</small></span>
+    </a>
+    <div class="top-actions">
+      <span class="save-state" id="saveState"><i></i> 本地自动保存</span>
+      <button class="btn ghost" id="newProjectBtn">新建对比</button>
+      <button class="btn dark" id="exportBtn">导出合并稿 <span>↓</span></button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <p class="eyebrow">COMPARE · DECIDE · POLISH</p>
+        <h1>让每一处文字选择，<br><em>清清楚楚。</em></h1>
+        <p class="hero-copy">放入两个相似版本，逐词查看差异、选择去留，并在同一页面打磨最终稿。</p>
+      </div>
+      <div class="progress-card" aria-label="使用流程">
+        <div class="step active"><span>01</span><b>放入原稿</b><small>粘贴或上传文本</small></div>
+        <div class="step"><span>02</span><b>审阅差异</b><small>逐处决定去留</small></div>
+        <div class="step"><span>03</span><b>润色定稿</b><small>随时直接修改</small></div>
+      </div>
+    </section>
+
+    <section class="workspace input-stage" id="inputStage">
+      <div class="section-heading">
+        <div><span class="section-no">01</span><h2>放入两个版本</h2></div>
+        <p>把文件直接拖入左右工作区；DOCX 将按页渲染，格式与内容都可继续编辑。</p>
+      </div>
+
+      <div class="input-grid rich-grid">
+        <article class="document-card rich-card doc-a" data-side="a">
+          <div class="document-label">
+            <span>A</span>
+            <div><strong>版本 A</strong><small id="fileNameA">拖入原始稿</small></div>
+            <span class="edit-state" id="editStateA">可编辑</span>
+          </div>
+          <div class="format-toolbar" data-side="a" aria-label="版本 A 格式工具栏">
+            <button data-command="bold" title="加粗"><b>B</b></button>
+            <button data-command="italic" title="斜体"><i>I</i></button>
+            <button data-command="underline" title="下划线"><u>U</u></button>
+            <button data-command="insertUnorderedList" title="项目符号">• 列表</button>
+            <button data-command="undo" title="撤销">↶</button>
+            <button data-command="redo" title="重做">↷</button>
+            <span>直接选中文字后设置格式</span>
+          </div>
+          <div class="document-dropzone" data-side="a">
+            <div class="drop-prompt">
+              <span class="drop-icon">⇩</span>
+              <strong>把版本 A 拖到这里</strong>
+              <small>DOCX / PDF / TXT / MD / HTML<br>也可以直接粘贴或在页面内输入</small>
+            </div>
+            <div id="editorA" class="document-surface" contenteditable="true" role="textbox" aria-multiline="true" aria-label="版本 A 富文档编辑器" spellcheck="true"></div>
+          </div>
+          <textarea id="textA" hidden aria-hidden="true"></textarea>
+          <div class="document-footer">
+            <label class="file-label">＋ 选择文件<input type="file" id="fileA" accept=".docx,.pdf,.txt,.md,.markdown,.html,.htm,.csv"></label>
+            <span><b class="drop-ready">支持拖放</b>　<i id="countA">0 字</i></span>
+          </div>
+        </article>
+
+        <div class="versus rich-versus"><span>VS</span></div>
+
+        <article class="document-card rich-card doc-b" data-side="b">
+          <div class="document-label">
+            <span>B</span>
+            <div><strong>版本 B</strong><small id="fileNameB">拖入修订稿</small></div>
+            <span class="edit-state" id="editStateB">可编辑</span>
+          </div>
+          <div class="format-toolbar" data-side="b" aria-label="版本 B 格式工具栏">
+            <button data-command="bold" title="加粗"><b>B</b></button>
+            <button data-command="italic" title="斜体"><i>I</i></button>
+            <button data-command="underline" title="下划线"><u>U</u></button>
+            <button data-command="insertUnorderedList" title="项目符号">• 列表</button>
+            <button data-command="undo" title="撤销">↶</button>
+            <button data-command="redo" title="重做">↷</button>
+            <span>直接选中文字后设置格式</span>
+          </div>
+          <div class="document-dropzone" data-side="b">
+            <div class="drop-prompt">
+              <span class="drop-icon">⇩</span>
+              <strong>把版本 B 拖到这里</strong>
+              <small>DOCX / PDF / TXT / MD / HTML<br>也可以直接粘贴或在页面内输入</small>
+            </div>
+            <div id="editorB" class="document-surface" contenteditable="true" role="textbox" aria-multiline="true" aria-label="版本 B 富文档编辑器" spellcheck="true"></div>
+          </div>
+          <textarea id="textB" hidden aria-hidden="true"></textarea>
+          <div class="document-footer">
+            <label class="file-label">＋ 选择文件<input type="file" id="fileB" accept=".docx,.pdf,.txt,.md,.markdown,.html,.htm,.csv"></label>
+            <span><b class="drop-ready">支持拖放</b>　<i id="countB">0 字</i></span>
+          </div>
+        </article>
+      </div>
+      <div class="compare-row">
+        <div class="privacy-note"><span>◉</span><div><strong>隐私优先</strong><small>拖入的文档只在当前浏览器中解析</small></div></div>
+        <button class="btn primary" id="compareBtn">开始逐词对比 <span>→</span></button>
+      </div>
+    </section>
+
+    <section class="workspace review-stage" id="reviewStage" hidden>
+      <div class="review-header">
+        <div>
+          <span class="section-no">02</span>
+          <div><h2>逐处审阅差异</h2><p><span class="legend a"></span> 版本 A　<span class="legend b"></span> 版本 B</p></div>
+        </div>
+        <div class="review-actions">
+          <button class="btn ghost compact" id="recompareBtn">重新计算差异</button>
+          <div class="review-stats"><b id="diffCount">0</b><span>处差异</span><i></i><b id="resolvedCount">0</b><span>已决定</span></div>
+        </div>
+      </div>
+
+      <div class="review-layout">
+        <div class="diff-panel">
+          <div class="direct-edit-note"><span>✎</span><strong>页面内已高亮差异</strong>　回到上方可直接修改任意一份文档；修改后点击“重新计算差异”。</div>
+          <div class="diff-columns"><span>版本 A</span><span>版本 B</span></div>
+          <div id="diffList" class="diff-list"></div>
+          <div id="allDone" class="all-done" hidden><span>✓</span><div><strong>全部差异已审阅</strong><small>你仍可以返回任意一处重新选择</small></div></div>
+        </div>
+
+        <aside class="editor-panel">
+          <div class="editor-head">
+            <div><span class="section-no">03</span><h2>满意稿</h2></div>
+            <span class="live-badge">可实时编辑</span>
+          </div>
+          <p class="editor-hint">点击差异选项会只更新对应文字；你也可以直接在下方任意修改。</p>
+          <div id="finalEditor" class="final-editor" contenteditable="true" role="textbox" aria-multiline="true" spellcheck="true"></div>
+          <div class="editor-footer">
+            <span id="finalCount">0 字</span>
+            <div><button class="icon-btn" id="copyBtn" title="复制全文">复制</button><button class="icon-btn" id="clearFormatBtn" title="转换为纯文本">纯文本</button></div>
+          </div>
+          <div class="download-box">
+            <div><strong>准备好定稿了吗？</strong><small>导出为可继续编辑的纯文本文件</small></div>
+            <button class="btn dark" id="sideExportBtn">导出 TXT</button>
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" role="status"></div>
+  <script>
+    window.documentReadersReady = new Promise(function (resolve, reject) {
+      window.__resolveDocumentReaders = resolve;
+      window.__rejectDocumentReaders = reject;
+    });
+  </script>
+  <script type="module" src="document-readers.mjs"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/docx-preview@0.3.7/dist/docx-preview.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mammoth@1.11.0/mammoth.browser.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
